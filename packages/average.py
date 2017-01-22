@@ -22,12 +22,12 @@ DEBUG = settings.DEBUG
 #############
 #  AVERAGE  #
 #############
-def average( idList, cursor, pred ) :
+def average( nosql_type, cursor, idList, pred ) :
   if DEBUG :
     print "... Running aggsPack AVERAGE ..."
 
-  theSum   = sum_agg.sum_agg( idList, cursor, pred )
-  theCount = count.count( idList, cursor, pred )
+  theSum   = sum_agg.sum_agg( nosql_type, cursor, idList, pred )
+  theCount = count.count( nosql_type, cursor, idList, pred )
 
   return float(theSum) / theCount
 

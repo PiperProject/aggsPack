@@ -40,7 +40,7 @@ def parseResult( res, lhs ) :
 # lhs is a single attribute
 # rhs is a value
 # op  is >, <, >=, <= == 
-def checkPred( ID, cursor, parsedPred ) :
+def checkPred( nosql_type, ID, cursor, parsedPred ) :
   ret = False
 
   if len(parsedPred) > 0 :
@@ -48,7 +48,7 @@ def checkPred( ID, cursor, parsedPred ) :
     op  = parsedPred[1]
     rhs = parsedPred[2]
 
-  ad        = Adapter.Adapter( NOSQL_TYPE )
+  ad        = Adapter.Adapter( nosql_type )
   resFull   = ad.get( ID, cursor )
   resTarget = parseResult( resFull, lhs )
 
@@ -82,7 +82,7 @@ def checkPred( ID, cursor, parsedPred ) :
 #########
 #  SUM  #
 #########
-def sum_agg( idList, cursor, pred ) :
+def sum_agg( nosql_type, cursor, idList, pred ) :
   if DEBUG :
     print "... Running aggsPack SUM ..."
 
@@ -90,7 +90,7 @@ def sum_agg( idList, cursor, pred ) :
   for i in idList :
     if pred :
       parsedPred = pred.split(",")
-      result = checkPred( i, cursor, parsedPred )
+      result = checkPred( nosql_type, i, cursor, parsedPred )
       print "result = " + str(result)
 
     if (pred == None) or not (result == None) :

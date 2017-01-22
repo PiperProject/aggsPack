@@ -17,7 +17,6 @@ import settings
 # -------------------------------------- #
 
 DEBUG      = settings.DEBUG
-NOSQL_TYPE = settings.NOSQL_TYPE
 
 ##################
 #  PARSE RESULT  #
@@ -31,6 +30,7 @@ def parseResult( res, lhs ) :
 
   return res[ lhs ]
 
+
 ################
 #  CHECK PRED  #
 ################
@@ -38,7 +38,7 @@ def parseResult( res, lhs ) :
 # lhs is a single attribute
 # rhs is a value
 # op  is >, <, >=, <= == 
-def checkPred( ID, cursor, parsedPred ) :
+def checkPred( nosql_type, ID, cursor, parsedPred ) :
   ret = False
 
   if len(parsedPred) > 0 :
@@ -46,7 +46,7 @@ def checkPred( ID, cursor, parsedPred ) :
     op  = parsedPred[1]
     rhs = parsedPred[2]
 
-  ad        = Adapter.Adapter( NOSQL_TYPE )
+  ad        = Adapter.Adapter( nosql_type )
   resFull   = ad.get( ID, cursor ) 
   resTarget = parseResult( resFull, lhs )
 
@@ -72,10 +72,11 @@ def checkPred( ID, cursor, parsedPred ) :
 
   return ret
 
+
 ###########
 #  COUNT  #
 ###########
-def count( idList, cursor, pred ) :
+def count( nosql_type, cursor, idList, pred ) :
   if DEBUG :
     print "... Running aggsPack COUNT ..."
 
@@ -83,7 +84,7 @@ def count( idList, cursor, pred ) :
   for i in idList :
     if pred :
       parsedPred = pred.split(",")
-      pred_true = checkPred( i, cursor, parsedPred )
+      pred_true = checkPred( nosql_type, i, cursor, parsedPred )
 
     if (pred == None) or pred_true :
       num += 1
