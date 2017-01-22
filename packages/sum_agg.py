@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-NOSQL_TYPE = "mongodb"
-
 # -------------------------------------- #
 import os, sys
 
@@ -19,7 +17,6 @@ import settings
 # -------------------------------------- #
 
 DEBUG      = settings.DEBUG
-NOSQL_TYPE = settings.NOSQL_TYPE
 
 ##################
 #  PARSE RESULT  #
