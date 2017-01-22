@@ -23,10 +23,10 @@ DEBUG      = settings.DEBUG
 ##################
 # assume results are collected in a dictionary for convenience.
 def parseResult( res, lhs ) :
-  print "res = " + str(res)
-  print "lhs = " + lhs
-
-  print "res[lhs] = " + str(res[lhs])
+  if DEBUG :
+    print "res = " + str(res)
+    print "lhs = " + lhs
+    print "res[lhs] = " + str(res[lhs])
 
   return str(res[ lhs ])
 
@@ -88,7 +88,8 @@ def sum_agg( nosql_type, cursor, idList, pred ) :
     if pred :
       parsedPred = pred.split(",")
       result = checkPred( nosql_type, i, cursor, parsedPred )
-      print "result = " + str(result)
+      if DEBUG :
+        print "result = " + str(result)
 
     if (pred == None) or not (result == None) :
       mySum += result
