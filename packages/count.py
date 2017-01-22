@@ -6,7 +6,8 @@ import os, sys
 # import sibling packages HERE!!!
 adaptersPath  = os.path.abspath( __file__ + "/../../../../adapters" )
 sys.path.append( adaptersPath )
-from adapters import Adapter
+#from adapters import Adapter
+import Adapter
 
 # settings dir
 settingsPath  = os.path.abspath( __file__ + "/../../core" )
