@@ -6,10 +6,10 @@ NOSQL_TYPE = "mongodb"
 import os, sys
 
 # import sibling packages HERE!!!
-adaptersPath  = os.path.abspath( __file__ + "/../../../adapters" )
+adaptersPath  = os.path.abspath( __file__ + "/../../../../adapters" )
 sys.path.append( adaptersPath )
 
-sys.exit( adaptersPath )
+#sys.exit( adaptersPath )
 
 if NOSQL_TYPE == "mongodb" :
   from adapters import piper_mongodb
@@ -22,6 +22,18 @@ else :
 
 
 DEBUG = True
+
+##################
+#  PARSE RESULT  #
+##################
+# assume results are collected in a dictionary for convenience.
+def parseResult( res, lhs ) :
+  print res
+  print lhs
+
+  print res[lhs]
+
+  return res[ lhs ]
 
 ################
 #  CHECK PRED  #
@@ -38,23 +50,27 @@ def checkPred( ID, cursor, parsedPred ) :
     op  = parsedPred[1]
     rhs = parsedPred[2]
 
-  res = adapters.get( ID, cursor )
-  res = cleanGet( res, lhs )
+  resFull   = piper_mongodb.get( ID, cursor ) # need to make an adapters.py adapters( "mongodb" ), generalize
+  resTarget = parseResult( resFull, lhs )
+
+  if rhs.isdigit() :
+    resTarge = int( rhs )
+    rhs      = int( rhs )
 
   if op == ">" :
-    if res > rhs :
+    if resTarget > rhs :
       ret = True
   elif op == ">=" :
-    if res < rhs :
+    if resTarget < rhs :
       ret = True
   elif op == "<" :
-    if res < rhs :
+    if resTarget < rhs :
       ret = True
   elif op == "<=" :
-    if res <= rhs :
+    if resTarget <= rhs :
       ret = True
   elif op == "==" :
-    if res == rhs :
+    if resTarget == rhs :
       ret = True
 
   return ret
@@ -62,28 +78,18 @@ def checkPred( ID, cursor, parsedPred ) :
 ###########
 #  COUNT  #
 ###########
-def count( idList, pred ) :
+def count( idList, cursor, pred ) :
   if DEBUG :
     print "... Running aggsPack COUNT ..."
 
   num = 0
   for i in idList :
-    parsedPred = pred.split(",")
-    pred_true = checkPred()
+    if pred :
+      parsedPred = pred.split(",")
+      pred_true = checkPred( i, cursor, parsedPred )
 
     if (pred == None) or pred_true :
       num += 1
 
   return num
 
-
-##########
-#  MAIN  #
-##########
-def main() :
-  print count( [1,2,3,4,5] )  
-
-#############################
-#  MAIN THRED OF EXECUTION  #
-#############################
-main()
