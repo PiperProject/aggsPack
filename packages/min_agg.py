@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-NOSQL_TYPE = "mongodb"
 
 # -------------------------------------- #
 import os, sys
@@ -8,30 +7,27 @@ import os, sys
 # import sibling packages HERE!!!
 adaptersPath  = os.path.abspath( __file__ + "/../../../../adapters" )
 sys.path.append( adaptersPath )
+from adapters import Adapter
 
-#sys.exit( adaptersPath )
-
-if NOSQL_TYPE == "mongodb" :
-  from adapters import piper_mongodb
-elif NOSQL_TYPE == "rocksdb" :
-  from adapters import piper_rocksdb
-else :
-  sys.exit( "NOSQL_TYPE not specified.\nAborting..." )
+# settings dir
+settingsPath  = os.path.abspath( __file__ + "/../../../../core" )
+sys.path.append( settingsPath )
+import settings
 
 # -------------------------------------- #
 
-
-DEBUG = True
+DEBUG      = settings.DEBUG
+NOSQL_TYPE = settings.NOSQL_TYPE
 
 ##################
 #  PARSE RESULT  #
 ##################
 # assume results are collected in a dictionary for convenience.
 def parseResult( res, lhs ) :
-  print "res = " + str(res)
-  print "lhs = " + lhs
-
-  print "res[lhs] = " + str(res[lhs])
+  if DEBUG :
+    print "res = " + str(res)
+    print "lhs = " + lhs
+    print "res[lhs] = " + str(res[lhs])
 
   return str(res[ lhs ])
 
@@ -50,7 +46,8 @@ def checkPred( ID, cursor, parsedPred ) :
     op  = parsedPred[1]
     rhs = parsedPred[2]
 
-  resFull   = piper_mongodb.get( ID, cursor ) # need to make an adapters.py adapters( "mongodb" ), generalize
+  ad        = Adapter.Adapter( NOSQL_TYPE )
+  resFull   = ad.get( ID, cursor ) # need to make an adapters.py adapters( "mongodb" ), generalize
   resTarget = parseResult( resFull, lhs )
 
   if rhs.isdigit() :
@@ -92,7 +89,8 @@ def min_agg( idList, cursor, pred ) :
     if pred :
       parsedPred = pred.split(",")
       result = checkPred( i, cursor, parsedPred )
-      print "result = " + str(result)
+      if DEBUG :
+        print "result = " + str(result)
 
     if (pred == None) or not (result == None) :
       myList.append( result )

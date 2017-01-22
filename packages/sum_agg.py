@@ -5,23 +5,20 @@ NOSQL_TYPE = "mongodb"
 # -------------------------------------- #
 import os, sys
 
-# import sibling packages HERE!!!
+# adapter dir
 adaptersPath  = os.path.abspath( __file__ + "/../../../../adapters" )
 sys.path.append( adaptersPath )
+from adapters import Adapter
 
-#sys.exit( adaptersPath )
-
-if NOSQL_TYPE == "mongodb" :
-  from adapters import piper_mongodb
-elif NOSQL_TYPE == "rocksdb" :
-  from adapters import piper_rocksdb
-else :
-  sys.exit( "NOSQL_TYPE not specified.\nAborting..." )
+# settings dir
+settingsPath  = os.path.abspath( __file__ + "/../../../../core" )
+sys.path.append( settingsPath )
+import settings
 
 # -------------------------------------- #
 
-
-DEBUG = True
+DEBUG      = settings.DEBUG
+NOSQL_TYPE = settings.NOSQL_TYPE
 
 ##################
 #  PARSE RESULT  #
@@ -50,7 +47,8 @@ def checkPred( ID, cursor, parsedPred ) :
     op  = parsedPred[1]
     rhs = parsedPred[2]
 
-  resFull   = piper_mongodb.get( ID, cursor ) # need to make an adapters.py adapters( "mongodb" ), generalize
+  ad        = Adapter.Adapter( NOSQL_TYPE )
+  resFull   = ad.get( ID, cursor )
   resTarget = parseResult( resFull, lhs )
 
   if rhs.isdigit() :

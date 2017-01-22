@@ -1,23 +1,14 @@
 #!/usr/bin/env python
 
-NOSQL_TYPE = "mongodb"
-
 # -------------------------------------- #
 import os, sys
 
-# import sibling packages HERE!!!
-adaptersPath  = os.path.abspath( __file__ + "/../../../../adapters" )
-sys.path.append( adaptersPath )
+# settings dir
+settingsPath  = os.path.abspath( __file__ + "/../../../../core" )
+sys.path.append( settingsPath )
+import settings
 
-#sys.exit( adaptersPath )
-
-if NOSQL_TYPE == "mongodb" :
-  from adapters import piper_mongodb
-elif NOSQL_TYPE == "rocksdb" :
-  from adapters import piper_rocksdb
-else :
-  sys.exit( "NOSQL_TYPE not specified.\nAborting..." )
-
+# aggs pack dir
 path  = os.path.abspath( __file__ + "/.." )
 sys.path.append( path )
 import count, sum_agg
@@ -25,7 +16,7 @@ import count, sum_agg
 # -------------------------------------- #
 
 
-DEBUG = True
+DEBUG = settings.DEBUG
 
 
 #############
