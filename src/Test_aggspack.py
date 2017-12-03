@@ -37,7 +37,7 @@ class Test_aggspack( unittest.TestCase ) :
   # tests AVG on a pickledb instance
   def test_avg_pickledb( self ) :
 
-    test_id    = "test_avg"
+    test_id    = "test_avg_pickledb"
     NOSQL_TYPE = "pickledb"
 
     # --------------------------------------------------------------- #
@@ -92,7 +92,7 @@ class Test_aggspack( unittest.TestCase ) :
   # tests COUNT on a pickledb instance
   def test_count_pickledb( self ) :
 
-    test_id    = "test_count"
+    test_id    = "test_count_pickledb"
     NOSQL_TYPE = "pickledb"
 
     # --------------------------------------------------------------- #
@@ -147,7 +147,7 @@ class Test_aggspack( unittest.TestCase ) :
   # tests MAX on a pickledb instance
   def test_max_pickledb( self ) :
 
-    test_id    = "test_max"
+    test_id    = "test_max_pickledb"
     NOSQL_TYPE = "pickledb"
 
     # --------------------------------------------------------------- #
@@ -202,7 +202,7 @@ class Test_aggspack( unittest.TestCase ) :
   # tests MIN on a pickledb instance
   def test_min_pickledb( self ) :
 
-    test_id    = "test_min"
+    test_id    = "test_min_pickledb"
     NOSQL_TYPE = "pickledb"
 
     # --------------------------------------------------------------- #
@@ -257,7 +257,7 @@ class Test_aggspack( unittest.TestCase ) :
   # tests SUM on a pickledb instance
   def test_sum_pickledb( self ) :
 
-    test_id    = "test_sum"
+    test_id    = "test_sum_pickledb"
     NOSQL_TYPE = "pickledb"
 
     # --------------------------------------------------------------- #
@@ -312,7 +312,7 @@ class Test_aggspack( unittest.TestCase ) :
   # tests AVG on a mongodb instance
   def test_avg_mongodb( self ) :
 
-    test_id    = "test_avg"
+    test_id    = "test_avg_mongodb"
     NOSQL_TYPE = "mongodb"
 
     # --------------------------------------------------------------- #
@@ -390,7 +390,7 @@ class Test_aggspack( unittest.TestCase ) :
   # tests COUNT on a mongodb instance
   def test_count_mongodb( self ) :
 
-    test_id    = "test_count"
+    test_id    = "test_count_mongodb"
     NOSQL_TYPE = "mongodb"
 
     # --------------------------------------------------------------- #
@@ -468,7 +468,7 @@ class Test_aggspack( unittest.TestCase ) :
   # tests MAX on a mongodb instance
   def test_max_mongodb( self ) :
 
-    test_id    = "test_max"
+    test_id    = "test_max_mongodb"
     NOSQL_TYPE = "mongodb"
 
     # --------------------------------------------------------------- #
@@ -546,7 +546,7 @@ class Test_aggspack( unittest.TestCase ) :
   # tests MIN on a mongodb instance
   def test_min_mongodb( self ) :
 
-    test_id    = "test_min"
+    test_id    = "test_min_mongodb"
     NOSQL_TYPE = "mongodb"
 
     # --------------------------------------------------------------- #
@@ -624,7 +624,7 @@ class Test_aggspack( unittest.TestCase ) :
   # tests SUM on a mongodb instance
   def test_sum_mongodb( self ) :
 
-    test_id    = "test_sum"
+    test_id    = "test_sum_mongodb"
     NOSQL_TYPE = "mongodb"
 
     # --------------------------------------------------------------- #
